@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 183612022}
   - component: {fileID: 183612024}
   - component: {fileID: 183612023}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: WaterTilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -980,7 +980,7 @@ GameObject:
   - component: {fileID: 1098432488}
   - component: {fileID: 1098432487}
   - component: {fileID: 1098432486}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlatformInTilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2564,7 +2564,7 @@ GameObject:
   - component: {fileID: 1289180012}
   - component: {fileID: 1289180011}
   - component: {fileID: 1289180010}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BackgroundTilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12126,14 +12126,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1959657146, guid: ff2724186cdb9c941a7621c03f3ed1f5, type: 3}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5102313822403414461, guid: ff2724186cdb9c941a7621c03f3ed1f5, type: 3}
-      propertyPath: playerSpeed
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 5820657618640090069, guid: ff2724186cdb9c941a7621c03f3ed1f5, type: 3}
       propertyPath: m_Name
       value: Player
