@@ -14,7 +14,7 @@ AnimatorStateMachine:
     m_Position: {x: 458.69977, y: 175.83173, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3454029811464650187}
-    m_Position: {x: 579.8691, y: 297.5609, z: 0}
+    m_Position: {x: 440, y: 330, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7256508466365919428}
     m_Position: {x: 869.7435, y: 296.72626, z: 0}
@@ -196,13 +196,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isClimbing
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
