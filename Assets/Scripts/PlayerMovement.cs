@@ -10,8 +10,12 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D myrigidbody;
     Animator myAnimator;
     CapsuleCollider2D mycapsuleCollider;
+    float startgravityScale;
+
     [SerializeField] float jumpSpeed = 10f;
     [SerializeField] float playerSpeed = 2f;
+    [SerializeField] float climbingSpeed = 2f;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
         myrigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         mycapsuleCollider = GetComponent<CapsuleCollider2D>();
+        startgravityScale = myrigidbody.gravityScale;
+        
     }
 
     // Update is called once per frame
@@ -26,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Run();
         FlipingSprite();
+        ClimbLadder();
         
     }
 
@@ -38,7 +45,12 @@ public class PlayerMovement : MonoBehaviour
     }
     void OnJump(InputValue value)
     {
-        if (!mycapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) { return; }/*The function prevent over jumping when it touches to ground after that player can jump*/
+        if (!mycapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) 
+        {
+            Debug.Log("jump");
+            return; 
+            
+        }/*The function prevent over jumping when it touches to ground after that player can jump*/
         if (value.isPressed)
         {
             myrigidbody.velocity = new Vector2(0f, jumpSpeed);
@@ -61,6 +73,22 @@ public class PlayerMovement : MonoBehaviour
            
         }
         
+
+    }
+    void ClimbLadder()
+    {
+        if (!mycapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")) )
+        {
+            myAnimator.SetBool("isClimbing", false);
+            myrigidbody.gravityScale = startgravityScale;
+            return;
+        }
+
+        Vector2 upVelocity = new Vector2(myrigidbody.velocity.x, moveInput.y * climbingSpeed);
+        myrigidbody.velocity = upVelocity;
+        myrigidbody.gravityScale = 0f;
+        bool Playerhasverticalmove = Math.Abs(myrigidbody.velocity.y) > Mathf.Epsilon;
+        myAnimator.SetBool("isClimbing", Playerhasverticalmove);
 
     }
    
