@@ -16,7 +16,7 @@ TagManager:
   - Example
   - Climbing
   - Bouncing
-  - 
+  - Enemy
   - 
   - 
   - 
@@ -52,4 +52,7 @@ TagManager:
     locked: 0
   - name: Bouncing
     uniqueID: 2115844241
+    locked: 0
+  - name: Enemy
+    uniqueID: 338318843
     locked: 0

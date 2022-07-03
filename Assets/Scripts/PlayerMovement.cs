@@ -71,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
         bool Playerhashorizontalmove = Math.Abs(myrigidbody.velocity.x) > Mathf.Epsilon;
         if (Playerhashorizontalmove)
         {
-            transform.localScale = new Vector2(Math.Sign(myrigidbody.velocity.x), 1f);
+            transform.localScale = new Vector2(Mathf.Sign(myrigidbody.velocity.x), 1f);
            
         }
         
