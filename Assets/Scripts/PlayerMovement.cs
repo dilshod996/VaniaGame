@@ -9,7 +9,8 @@ public class PlayerMovement : MonoBehaviour
     Vector2 moveInput;
     Rigidbody2D myrigidbody;
     Animator myAnimator;
-    CapsuleCollider2D mycapsuleCollider;
+    CapsuleCollider2D mycBodyCollider;
+    BoxCollider2D myFootCollider;
     float startgravityScale;
 
     [SerializeField] float jumpSpeed = 10f;
@@ -22,7 +23,8 @@ public class PlayerMovement : MonoBehaviour
     {
         myrigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
-        mycapsuleCollider = GetComponent<CapsuleCollider2D>();
+        mycBodyCollider = GetComponent<CapsuleCollider2D>();
+        myFootCollider = GetComponent<BoxCollider2D>();
         startgravityScale = myrigidbody.gravityScale;
         
     }
@@ -33,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
         Run();
         FlipingSprite();
         ClimbLadder();
-        
+        /*MushroomEffect();*/
     }
 
 
@@ -45,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void OnJump(InputValue value)
     {
-        if (!mycapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) 
+        if (!myFootCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) 
         {
             Debug.Log("jump");
             return; 
@@ -77,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void ClimbLadder()
     {
-        if (!mycapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")) )
+        if (!myFootCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")) )
         {
             myAnimator.SetBool("isClimbing", false);
             myrigidbody.gravityScale = startgravityScale;
@@ -91,5 +93,6 @@ public class PlayerMovement : MonoBehaviour
         myAnimator.SetBool("isClimbing", Playerhasverticalmove);
 
     }
+   
    
 }
