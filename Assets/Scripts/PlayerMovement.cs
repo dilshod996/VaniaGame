@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,11 +15,15 @@ public class PlayerMovement : MonoBehaviour
     SpriteRenderer mysprite;
     float startgravityScale;
     bool isAlive = true;
+    CinemachineImpulseSource myimpulse;
   
 
     [SerializeField] float jumpSpeed = 10f;
     [SerializeField] float playerSpeed = 2f;
     [SerializeField] float climbingSpeed = 2f;
+
+    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] Transform gun;
     
 
     // Start is called before the first frame update
@@ -30,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
         myFootCollider = GetComponent<BoxCollider2D>();
         startgravityScale = myrigidbody.gravityScale;
         mysprite = GetComponent<SpriteRenderer>();
+        myimpulse = GetComponent<CinemachineImpulseSource>();
     }
 
     // Update is called once per frame
@@ -110,8 +116,23 @@ public class PlayerMovement : MonoBehaviour
             float newY = moveInput.y + 15f;
             myrigidbody.velocity = new Vector2(myrigidbody.velocity.x, newY);
             mycBodyCollider.enabled = !mycBodyCollider.enabled;
+            myimpulse.GenerateImpulse(1);
             
         }
+        if (myFootCollider.IsTouchingLayers(LayerMask.GetMask("Hazards")))
+        {
+            isAlive = false;
+            myAnimator.SetTrigger("Dying");
+            mycBodyCollider.enabled = !mycBodyCollider.enabled;
+            myimpulse.GenerateImpulse(1);
+        }
+
+
+    }
+    void OnFire()
+    {
+        if (!isAlive) { return; }
+        Instantiate(bulletPrefab, gun.position, transform.rotation );
     }
    
    
