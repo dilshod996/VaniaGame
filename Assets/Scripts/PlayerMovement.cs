@@ -11,7 +11,10 @@ public class PlayerMovement : MonoBehaviour
     Animator myAnimator;
     CapsuleCollider2D mycBodyCollider;
     BoxCollider2D myFootCollider;
+    SpriteRenderer mysprite;
     float startgravityScale;
+    bool isAlive = true;
+  
 
     [SerializeField] float jumpSpeed = 10f;
     [SerializeField] float playerSpeed = 2f;
@@ -26,15 +29,17 @@ public class PlayerMovement : MonoBehaviour
         mycBodyCollider = GetComponent<CapsuleCollider2D>();
         myFootCollider = GetComponent<BoxCollider2D>();
         startgravityScale = myrigidbody.gravityScale;
-        
+        mysprite = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!isAlive) { return; }
         Run();
         FlipingSprite();
         ClimbLadder();
+        Die();
         /*MushroomEffect();*/
     }
 
@@ -42,11 +47,13 @@ public class PlayerMovement : MonoBehaviour
 
     void OnMove(InputValue value)
     {
+        if (!isAlive) { return; }
         moveInput = value.Get<Vector2>();
         
     }
     void OnJump(InputValue value)
     {
+        if (!isAlive) { return; }
         if (!myFootCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) 
         {
             Debug.Log("jump");
@@ -92,6 +99,19 @@ public class PlayerMovement : MonoBehaviour
         bool Playerhasverticalmove = Math.Abs(myrigidbody.velocity.y) > Mathf.Epsilon;
         myAnimator.SetBool("isClimbing", Playerhasverticalmove);
 
+    }
+    void Die()
+    {
+        if (mycBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")))
+        {
+            isAlive = false;
+            myAnimator.SetTrigger("Dying");
+            /*float newX = moveInput.x + 10f;*/
+            float newY = moveInput.y + 15f;
+            myrigidbody.velocity = new Vector2(myrigidbody.velocity.x, newY);
+            mycBodyCollider.enabled = !mycBodyCollider.enabled;
+            
+        }
     }
    
    
