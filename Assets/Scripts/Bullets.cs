@@ -31,6 +31,6 @@ public class Bullets : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other)
     {
         Destroy(gameObject);
-        Debug.Log("Error");
+        
     }
 }

@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     SpriteRenderer mysprite;
     float startgravityScale;
     bool isAlive = true;
+    bool isShooting = true;
     CinemachineImpulseSource myimpulse;
   
 
@@ -46,6 +47,11 @@ public class PlayerMovement : MonoBehaviour
         FlipingSprite();
         ClimbLadder();
         Die();
+        if (isShooting)
+        {
+            OnFire();
+
+        }
         /*MushroomEffect();*/
     }
 
@@ -78,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
         myrigidbody.velocity = playerVelocity;
         bool Playerhashorizontalmove = Math.Abs(myrigidbody.velocity.x) > Mathf.Epsilon;
         myAnimator.SetBool("isRunning", Playerhashorizontalmove);
+        
     }
     void FlipingSprite()
     {
@@ -132,8 +139,11 @@ public class PlayerMovement : MonoBehaviour
     void OnFire()
     {
         if (!isAlive) { return; }
-        Instantiate(bulletPrefab, gun.position, transform.rotation );
+       /* Vector2 newRotationForBullets = new Vector2(90, 0);*/
+        Instantiate(bulletPrefab, gun.position, Quaternion.identity);
+        myAnimator.SetBool("isShooting", true);
     }
+    
    
    
 }
